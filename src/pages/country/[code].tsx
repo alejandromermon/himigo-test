@@ -8,7 +8,7 @@ const COUNTRY_DETAILS_QUERY = gql`
       code
       name
       capital
-      currency
+      currencies
       emoji
       continent {
         name
@@ -97,13 +97,28 @@ export default function CountryDetails() {
             <span className="text-lg text-black">{country.capital}</span>
           </p>
           <p className="text-xl font-semibold text-[#330AF8]">
-            Currency:{" "}
-            <span className="text-lg text-black">{country.currency}</span>
-          </p>
-          <p className="text-xl font-semibold text-[#330AF8]">
             Continent:{" "}
             <span className="text-lg text-black">{country.continent.name}</span>
           </p>
+
+          <div>
+            <p className="text-xl font-semibold text-[#330AF8] mb-1.5">
+            Currencies:
+            </p>
+            <ul className="list-disc pl-8 space-y-2 list-inside">
+              {country.currencies && country.currencies.length > 0 ? (
+                country.currencies.map(
+                  (currency: string) => (
+                    <li key={currency} className="text-lg text-black">
+                      {currency}
+                    </li>
+                  )
+                )
+              ) : (
+                <p className="text-gray-500">No currency available</p>
+              )}
+            </ul>
+          </div>
 
           <div>
             <p className="text-xl font-semibold text-[#330AF8] mb-1.5">
