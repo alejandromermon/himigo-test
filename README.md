@@ -22,12 +22,15 @@ Ensure you have **Node.js** and **npm** installed. You can download Node.js from
    git clone https://github.com/alejandromermon/himigo-test.git
 
 2. Navigate into the project folder:
+   ```bash
     cd himigo-test
 
 3. Install the dependencies:
+   ```bash
     npm install
 
 4. Run the development server:
+   ```bash
     npm run dev
 
 5. Open http://localhost:3000 in your browser to view the application.
