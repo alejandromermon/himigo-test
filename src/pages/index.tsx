@@ -18,13 +18,17 @@ const COUNTRY_QUERY = gql`
 
 export default function Home() {
   const router = useRouter();
-  const [searchVal, setsearchVal] = useState("");
+  const [searchVal, setSearchVal] = useState("");
 
   useEffect(() => {
-    setsearchVal(localStorage.getItem("lastQuery") || "");
+    const lastQuery = localStorage.getItem("lastQuery");
+    if (lastQuery) {
+      setSearchVal(lastQuery);
+    }
   }, []);
 
   const { data, loading, error } = useQuery(COUNTRY_QUERY);
+
   if (loading) {
     return (
       <main className="bg-[#CFF80A] min-h-screen w-full p-6 flex justify-center items-center">
@@ -35,6 +39,7 @@ export default function Home() {
       </main>
     );
   }
+
   if (error) {
     return (
       <main className="bg-[#CFF80A] min-h-screen w-full p-6 flex justify-center items-center">
@@ -57,7 +62,6 @@ export default function Home() {
     router.push(`/country/${code}`);
   };
 
-  // Filter countries based on the search query
   const filteredCountries = data.countries.filter((country: { name: string }) =>
     country.name.toLowerCase().includes(searchVal.toLowerCase())
   );
@@ -72,17 +76,18 @@ export default function Home() {
         <h1 className="text-4xl font-extrabold text-center text-[#1C3D50]">
           Country List
         </h1>
-        <p className="text-md text-gray-700 text-center">Search for any country to learn more about it!</p>
+        <p className="text-md text-gray-700 text-center">
+          Search for any country to learn more about it!
+        </p>
 
-        {/* SearchBar component */}
         <SearchBar
+          value={searchVal}
           onSearch={(value: string) => {
-            setsearchVal(value);
+            setSearchVal(value);
             localStorage.setItem("lastQuery", value);
           }}
         />
 
-        {/* Country List */}
         <ol className="mt-6 space-y-4">
           {filteredCountries.map((country: { code: string; name: string }) => (
             <li

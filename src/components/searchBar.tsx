@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SearchBar({
+  value,
   onSearch,
 }: {
+  value: string;
   onSearch: (value: string) => void;
 }) {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(value);
+
+  useEffect(() => {
+    setSearchValue(value);
+  }, [value]);
 
   const handleClear = () => {
     setSearchValue("");
