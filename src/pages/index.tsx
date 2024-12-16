@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import SearchBar from "@/components/searchBar";
 
 const COUNTRY_QUERY = gql`
@@ -37,8 +38,16 @@ export default function Home() {
   if (error) {
     return (
       <main className="bg-[#CFF80A] min-h-screen w-full p-6 flex justify-center items-center">
-        <div className="flex items-center justify-center space-x-4">
+        <div className="flex flex-col items-center justify-center space-x-4">
           <pre className="text-red-500">{error.message}</pre>
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => router.push("/")}
+              className="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition ease-in-out duration-200"
+            >
+              Home
+            </button>
+          </div>
         </div>
       </main>
     );
@@ -55,10 +64,16 @@ export default function Home() {
 
   return (
     <main className="bg-[#CFF80A] min-h-screen w-full p-6 flex justify-center items-center">
+      <Head>
+        <title>Countries</title>
+      </Head>
+
       <div className="space-y-4 max-w-5xl w-full">
-        <h1 className="text-4xl font-extrabold text-center mb-8 text-[#1C3D50]">
-          Countries
+        <h1 className="text-4xl font-extrabold text-center text-[#1C3D50]">
+          Country List
         </h1>
+        <p className="text-md text-gray-700 text-center">Search for any country to learn more about it!</p>
+
         {/* SearchBar component */}
         <SearchBar
           onSearch={(value: string) => {

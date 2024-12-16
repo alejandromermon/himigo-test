@@ -82,13 +82,12 @@ export default function CountryDetails() {
 
   return (
     <main className="bg-[#CFF80A] min-h-screen w-full p-6 flex justify-center items-center">
+      <Head>
+        <title>
+          {country.name} {country.emoji}
+        </title>
+      </Head>
       <div className="space-y-4 max-w-4xl w-full">
-        <Head>
-          <title>
-            {country.name} {country.emoji}
-          </title>
-        </Head>
-
         <div className="space-y-4">
           <h1 className="text-3xl font-bold text-center text-black">
             {country.name} {country.emoji}
